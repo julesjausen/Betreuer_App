@@ -15,6 +15,9 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".AddWorkActivity"
+            android:exported="false" />
+        <activity
             android:name=".BetreuerActivity"
             android:exported="false" />
         <activity

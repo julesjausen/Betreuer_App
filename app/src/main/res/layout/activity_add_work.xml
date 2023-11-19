@@ -1,0 +1,83 @@
+<!-- res/layout/activity_add_work.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:title="Betreuer-App" />
+
+    <!-- TextInputLayout für den Namen der Arbeit -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutWorkName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="16dp"
+        app:hintEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextWorkName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name der Arbeit" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- TextInputLayout für das Studienfach -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputSubject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textInputLayoutWorkName"
+        android:layout_marginTop="16dp"
+        app:hintEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextSubject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Studienfach" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- TextInputLayout für die Beschreibung -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textInputSubject"
+        android:layout_marginTop="16dp"
+        app:hintEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Beschreibung" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Button für "Speichern" -->
+    <Button
+        android:id="@+id/buttonSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:text="Speichern" />
+
+    <!-- Button für "Abbrechen" -->
+    <Button
+        android:id="@+id/buttonCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:text="Abbrechen" />
+
+    <!-- Platzhalter und Logik für zusätzliche Felder, die unter bestimmten Bedingungen aktiviert werden -->
+
+</RelativeLayout>
