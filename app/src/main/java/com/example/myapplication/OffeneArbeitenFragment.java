@@ -53,11 +53,17 @@ public class OffeneArbeitenFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadArbeiten();
+    }
+
     private void loadArbeiten() {
+        arbeitenListe.clear();
+
         String currentBetreuerUid = auth.getCurrentUser() != null ? auth.getCurrentUser().getUid() : "";
 
-        Toast.makeText(getActivity(), "load AA", Toast.LENGTH_SHORT).show();
-        
         Query query = firestore.collection("thesis")
                 .whereEqualTo("betreuerUid", currentBetreuerUid)
                 .whereEqualTo("zustand", "offen")
@@ -65,6 +71,7 @@ public class OffeneArbeitenFragment extends Fragment {
 
         query.get().addOnSuccessListener(queryDocumentSnapshots -> {
             if (!queryDocumentSnapshots.isEmpty()) {
+                arbeitenListe.clear();
                 for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
                     Arbeit arbeit = document.toObject(Arbeit.class);
                     arbeitenListe.add(arbeit);

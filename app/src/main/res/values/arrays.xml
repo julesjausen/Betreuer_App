@@ -1,0 +1,14 @@
+<resources>
+    <string-array name="zustand_options">
+        <item>in Abstimmung</item>
+        <item>angemeldet</item>
+        <item>abgegeben</item>
+        <item>Kolloquium abgehalten</item>
+    </string-array>
+
+    <string-array name="rechnungsstatus_options">
+        <item>N/A</item>
+        <item>gestellt</item>
+        <item>beglichen</item>
+    </string-array>
+</resources>

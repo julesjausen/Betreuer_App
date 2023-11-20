@@ -60,6 +60,33 @@
             android:hint="Beschreibung" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- Spinner für Zweitgutachter -->
+    <Spinner
+        android:id="@+id/spinnerZweitgutachter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textInputDescription"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"/>
+
+    <!-- Spinner für Zustand -->
+    <Spinner
+        android:id="@+id/spinnerZustand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinnerZweitgutachter"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"/>
+
+    <!-- Spinner für Rechnungsstatus -->
+    <Spinner
+        android:id="@+id/spinnerRechnungsstatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinnerZustand"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"/>
+
     <!-- Button für "Speichern" -->
     <Button
         android:id="@+id/buttonSave"
@@ -67,7 +94,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:text="Speichern" />
+        android:text="Speichern"
+        android:layout_marginBottom="16dp"/>
 
     <!-- Button für "Abbrechen" -->
     <Button
@@ -76,8 +104,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:text="Abbrechen" />
-
-    <!-- Platzhalter und Logik für zusätzliche Felder, die unter bestimmten Bedingungen aktiviert werden -->
+        android:text="Abbrechen"
+        android:layout_marginBottom="16dp"/>
 
 </RelativeLayout>
