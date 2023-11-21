@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.adapters;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -9,13 +9,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.models.Arbeit;
+import com.example.myapplication.R;
+import com.example.myapplication.activities.AddWorkActivity;
+
 import java.util.List;
 
-public class ArbeitAdapter extends RecyclerView.Adapter<ArbeitAdapter.ArbeitViewHolder> {
+public class BetreuteArbeitenAdapter extends RecyclerView.Adapter<BetreuteArbeitenAdapter.ArbeitViewHolder> {
 
     private List<Arbeit> arbeitenListe;
 
-    public ArbeitAdapter(List<Arbeit> arbeitenListe) {
+    public BetreuteArbeitenAdapter(List<Arbeit> arbeitenListe) {
         this.arbeitenListe = arbeitenListe;
     }
 
@@ -23,7 +27,7 @@ public class ArbeitAdapter extends RecyclerView.Adapter<ArbeitAdapter.ArbeitView
     @Override
     public ArbeitViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.arbeit_item_betreuer, parent, false);
+                .inflate(R.layout.arbeit_item_betreuer_betreut, parent, false);
         return new ArbeitViewHolder(view);
     }
 
@@ -31,7 +35,7 @@ public class ArbeitAdapter extends RecyclerView.Adapter<ArbeitAdapter.ArbeitView
     public void onBindViewHolder(@NonNull ArbeitViewHolder holder, int position) {
         Arbeit arbeit = arbeitenListe.get(position);
         holder.textViewArbeitName.setText(arbeit.getNameDerArbeit());
-        holder.textViewFachName.setText(arbeit.getStudienfach());
+        holder.textViewStatus.setText(arbeit.getZustand()); // Hier setzen wir den Status statt des Fachs
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,14 +54,12 @@ public class ArbeitAdapter extends RecyclerView.Adapter<ArbeitAdapter.ArbeitView
 
     public static class ArbeitViewHolder extends RecyclerView.ViewHolder {
         public TextView textViewArbeitName;
-        public TextView textViewFachName;
+        public TextView textViewStatus;
 
         public ArbeitViewHolder(View itemView) {
             super(itemView);
-            textViewArbeitName = itemView.findViewById(R.id.textViewArbeitName);
-            textViewFachName = itemView.findViewById(R.id.textViewFachName);
-
-            // Initialisieren Sie hier andere Views des Arbeit-Items
+            textViewArbeitName = itemView.findViewById(R.id.textViewArbeitNameBetreut);
+            textViewStatus = itemView.findViewById(R.id.textViewStatusBetreut);
         }
     }
 }

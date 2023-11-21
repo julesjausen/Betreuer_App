@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.myapplication.models.Arbeit;
+import com.example.myapplication.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -19,7 +21,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 
 public class AddWorkActivity extends AppCompatActivity {
 
@@ -80,6 +81,7 @@ public class AddWorkActivity extends AppCompatActivity {
 
         // Überprüfen, ob eine arbeitUid übergeben wurde
         String arbeitUid = getIntent().getStringExtra("arbeitUid");
+        Toast.makeText(this, "arbeit uid" + arbeitUid, Toast.LENGTH_SHORT).show();
         if (arbeitUid != null && !arbeitUid.isEmpty()) {
             // Arbeit wird bearbeitet
             if (getSupportActionBar() != null) {
@@ -100,13 +102,13 @@ public class AddWorkActivity extends AppCompatActivity {
         String workName = editTextWorkName.getText().toString().trim();
         String subject = editTextSubject.getText().toString().trim();
         String description = editTextDescription.getText().toString().trim();
+        String zustand = "offen"; // Standardzustand für neue Arbeiten
+        if (spinnerZustand.getVisibility() == View.VISIBLE) {
+            zustand = spinnerZustand.getSelectedItem().toString();
+        }
+
         String rechnungsstatusBetreuer = spinnerRechnungsstatus.getSelectedItem().toString();
         String zweitgutachterName = spinnerZweitgutachter.getSelectedItem() != null ? spinnerZweitgutachter.getSelectedItem().toString() : "N/A";
-
-        String zustand = originalZustand; // Standardwert ist der ursprüngliche Zustand
-        if (spinnerZustand.getVisibility() == View.VISIBLE) {
-            zustand = spinnerZustand.getSelectedItem().toString(); // Zustand aus dem Spinner, falls sichtbar
-        }
 
         // Validierung der Eingaben
         if (workName.isEmpty() || subject.isEmpty() || description.isEmpty()) {
@@ -120,8 +122,6 @@ public class AddWorkActivity extends AppCompatActivity {
             return;
         }
 
-        // Die arbeitUid, die beim Bearbeiten verwendet wird
-
         Map<String, Object> work = new HashMap<>();
         work.put("betreuerUid", betreuerUid);
         work.put("nameDerArbeit", workName);
@@ -130,35 +130,48 @@ public class AddWorkActivity extends AppCompatActivity {
         work.put("zustand", zustand);
         work.put("rechnungsstatusBetreuer", rechnungsstatusBetreuer);
 
-        // Die arbeitUid, die beim Bearbeiten verwendet wird
         String arbeitUid = getIntent().getStringExtra("arbeitUid");
 
+        // Wenn ein Zweitgutachter ausgewählt wurde, speichere seine UID, sonst lösche das Feld
         if (!zweitgutachterName.equals("N/A")) {
             String zweitgutachterUid = zweitgutachterMap.get(zweitgutachterName);
             if (zweitgutachterUid != null) {
                 work.put("zweitgutachterUid", zweitgutachterUid);
-                saveOrUpdateWork(work, arbeitUid);
             } else {
                 Toast.makeText(this, "Zweitgutachter nicht gefunden", Toast.LENGTH_SHORT).show();
+                return;
             }
+        } else if (arbeitUid != null && !arbeitUid.isEmpty()) {
+            firestore.collection("thesis").document(arbeitUid)
+                    .update("zweitgutachterUid", FieldValue.delete())
+                    .addOnSuccessListener(aVoid -> Toast.makeText(AddWorkActivity.this, "Zweitgutachter entfernt", Toast.LENGTH_SHORT).show())
+                    .addOnFailureListener(e -> Toast.makeText(AddWorkActivity.this, "Fehler beim Entfernen des Zweitgutachters", Toast.LENGTH_SHORT).show());
+        }
+
+        // Speichere oder aktualisiere die Arbeit
+        if (arbeitUid != null && !arbeitUid.isEmpty()) {
+            firestore.collection("thesis").document(arbeitUid).update(work)
+                    .addOnSuccessListener(aVoid -> {
+                        Toast.makeText(AddWorkActivity.this, "Arbeit aktualisiert", Toast.LENGTH_SHORT).show();
+                        finish();
+                    })
+                    .addOnFailureListener(e -> Toast.makeText(AddWorkActivity.this, "Fehler beim Aktualisieren der Arbeit", Toast.LENGTH_SHORT).show());
         } else {
-            if (arbeitUid != null && !arbeitUid.isEmpty()) {
-                // Lösche das Feld "zweitgutachterUid" aus dem bestehenden Dokument
-                firestore.collection("thesis").document(arbeitUid).update("zweitgutachterUid", FieldValue.delete())
-                        .addOnSuccessListener(aVoid -> {
-                            // Aktualisiere den Rest der Arbeit
-                            saveOrUpdateWork(work, arbeitUid);
-                        })
-                        .addOnFailureListener(e -> Toast.makeText(AddWorkActivity.this, "Fehler beim Entfernen des Zweitgutachters", Toast.LENGTH_SHORT).show());
-            } else {
-                // Für neue Arbeit, kein Feld zum Löschen, füge einfach das Dokument hinzu
-                firestore.collection("thesis").add(work)
-                        .addOnSuccessListener(documentReference -> Toast.makeText(AddWorkActivity.this, "Arbeit gespeichert", Toast.LENGTH_SHORT).show())
-                        .addOnFailureListener(e -> Toast.makeText(AddWorkActivity.this, "Fehler beim Speichern der Arbeit", Toast.LENGTH_SHORT).show());
-            }
+            firestore.collection("thesis").add(work)
+                    .addOnSuccessListener(documentReference -> {
+                        String newArbeitUid = documentReference.getId();
+                        firestore.collection("thesis").document(newArbeitUid)
+                                .update("arbeitUid", newArbeitUid)
+                                .addOnSuccessListener(aVoid -> Toast.makeText(AddWorkActivity.this, "Arbeit gespeichert und arbeitUid aktualisiert.", Toast.LENGTH_SHORT).show())
+                                .addOnFailureListener(e -> Toast.makeText(AddWorkActivity.this, "Fehler beim Aktualisieren der arbeitUid.", Toast.LENGTH_SHORT).show());
+                        finish();
+                    })
+                    .addOnFailureListener(e -> Toast.makeText(AddWorkActivity.this, "Fehler beim Speichern der Arbeit.", Toast.LENGTH_SHORT).show());
         }
     }
 
+
+/*
     private void getZweitgutachterUidByName(String name, UidConsumer uidConsumer) {
         firestore.collection("user")
                 .whereEqualTo("name", name)
@@ -173,6 +186,8 @@ public class AddWorkActivity extends AppCompatActivity {
                 })
                 .addOnFailureListener(e -> Toast.makeText(this, "Fehler beim Laden des Zweitgutachters", Toast.LENGTH_SHORT).show());
     }
+
+ */
 
     private void saveOrUpdateWork(Map<String, Object> work, String arbeitUid) {
         if (arbeitUid != null && !arbeitUid.isEmpty()) {
@@ -219,7 +234,6 @@ public class AddWorkActivity extends AppCompatActivity {
                 })
                 .addOnFailureListener(e -> Toast.makeText(this, "Fehler beim Laden der Daten", Toast.LENGTH_SHORT).show());
     }
-
 
     private void setUpSpinners() {
         // Initialisiere den Adapter für den Zustand-Spinner

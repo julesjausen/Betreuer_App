@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,7 +46,7 @@ public class DeciderActivity extends AppCompatActivity {
                                     intent = new Intent(DeciderActivity.this, BetreuerActivity.class);
                                     break;
                                 case "Student":
-                                    intent = new Intent(DeciderActivity.this, BetreuerActivity.class);
+                                    intent = new Intent(DeciderActivity.this, StudentActivity.class);
                                     break;
                                 default:
                                     intent = new Intent(DeciderActivity.this, LoginActivity.class);
