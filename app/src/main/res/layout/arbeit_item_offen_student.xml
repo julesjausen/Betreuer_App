@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textViewArbeitNameOffenStudent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name der Thesis"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:layout_alignParentLeft="true"/>
+
+        <TextView
+            android:id="@+id/textViewArbeitFachOffenStudent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fach"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:layout_alignParentRight="true"/>
+
+        <TextView
+            android:id="@+id/textViewArbeitBeschreibungOffenStudent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewArbeitNameOffenStudent"
+            android:text="Beschreibung"
+            android:textAppearance="?attr/textAppearanceListItemSecondary"/>
+
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -6,7 +6,7 @@
     android:padding="16dp">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbarAddWork"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
@@ -14,15 +14,15 @@
 
     <!-- TextInputLayout für den Namen der Arbeit -->
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayoutWorkName"
+        android:id="@+id/textInputLayoutWorkNameAddWork"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar"
+        android:layout_below="@id/toolbarAddWork"
         android:layout_marginTop="16dp"
         app:hintEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextWorkName"
+            android:id="@+id/editTextWorkNameAddWork"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Name der Arbeit" />
@@ -30,15 +30,15 @@
 
     <!-- TextInputLayout für das Studienfach -->
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputSubject"
+        android:id="@+id/textInputSubjectAddWork"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textInputLayoutWorkName"
+        android:layout_below="@id/textInputLayoutWorkNameAddWork"
         android:layout_marginTop="16dp"
         app:hintEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextSubject"
+            android:id="@+id/editTextSubjectAddWork"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Studienfach" />
@@ -46,15 +46,15 @@
 
     <!-- TextInputLayout für die Beschreibung -->
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputDescription"
+        android:id="@+id/textInputDescriptionAddWork"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textInputSubject"
+        android:layout_below="@id/textInputSubjectAddWork"
         android:layout_marginTop="16dp"
         app:hintEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextDescription"
+            android:id="@+id/editTextDescriptionAddWork"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Beschreibung" />
@@ -62,34 +62,34 @@
 
     <!-- Spinner für Zweitgutachter -->
     <Spinner
-        android:id="@+id/spinnerZweitgutachter"
+        android:id="@+id/spinnerZweitgutachterAddWork"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textInputDescription"
+        android:layout_below="@id/textInputDescriptionAddWork"
         android:layout_marginTop="16dp"
         android:visibility="gone"/>
 
     <!-- Spinner für Zustand -->
     <Spinner
-        android:id="@+id/spinnerZustand"
+        android:id="@+id/spinnerZustandAddWork"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/spinnerZweitgutachter"
+        android:layout_below="@id/spinnerZweitgutachterAddWork"
         android:layout_marginTop="16dp"
         android:visibility="gone"/>
 
     <!-- Spinner für Rechnungsstatus -->
     <Spinner
-        android:id="@+id/spinnerRechnungsstatus"
+        android:id="@+id/spinnerRechnungsstatusAddWork"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/spinnerZustand"
+        android:layout_below="@id/spinnerZustandAddWork"
         android:layout_marginTop="16dp"
         android:visibility="gone"/>
 
     <!-- Button für "Speichern" -->
     <Button
-        android:id="@+id/buttonSave"
+        android:id="@+id/buttonSaveAddWork"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -99,7 +99,7 @@
 
     <!-- Button für "Abbrechen" -->
     <Button
-        android:id="@+id/buttonCancel"
+        android:id="@+id/buttonCancelZweitgutachter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

@@ -39,7 +39,7 @@ public class AddWorkActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_work);
 
         // Toolbar-Konfiguration
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbarAddWork);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -53,15 +53,15 @@ public class AddWorkActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
 
         // EditTexts initialisieren
-        editTextWorkName = findViewById(R.id.editTextWorkName);
-        editTextSubject = findViewById(R.id.editTextSubject);
-        editTextDescription = findViewById(R.id.editTextDescription);
-        spinnerZweitgutachter = findViewById(R.id.spinnerZweitgutachter);
-        spinnerZustand = findViewById(R.id.spinnerZustand);
-        spinnerRechnungsstatus = findViewById(R.id.spinnerRechnungsstatus);
+        editTextWorkName = findViewById(R.id.editTextWorkNameAddWork);
+        editTextSubject = findViewById(R.id.editTextSubjectAddWork);
+        editTextDescription = findViewById(R.id.editTextDescriptionAddWork);
+        spinnerZweitgutachter = findViewById(R.id.spinnerZweitgutachterAddWork);
+        spinnerZustand = findViewById(R.id.spinnerZustandAddWork);
+        spinnerRechnungsstatus = findViewById(R.id.spinnerRechnungsstatusAddWork);
 
         // Speichern-Button
-        Button buttonSave = findViewById(R.id.buttonSave);
+        Button buttonSave = findViewById(R.id.buttonSaveAddWork);
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,7 +70,7 @@ public class AddWorkActivity extends AppCompatActivity {
         });
 
         // Abbrechen-Button
-        Button buttonCancel = findViewById(R.id.buttonCancel);
+        Button buttonCancel = findViewById(R.id.buttonCancelZweitgutachter);
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

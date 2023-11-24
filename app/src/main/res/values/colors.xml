@@ -2,4 +2,12 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="colorMenuBackground">#FFFFFF</color> <!-- Weißer Hintergrund -->
+    <color name="colorMenuItemText">#000000</color> <!-- Schwarzer Text -->
+
+
+    <color name="popup_menu_background">#FFFFFF</color> <!-- Weißer Hintergrund -->
+    <color name="popup_menu_text">#000000</color> <!-- Schwarzer Text -->
+
 </resources>

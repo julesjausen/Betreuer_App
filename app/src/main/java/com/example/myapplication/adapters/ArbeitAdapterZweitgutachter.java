@@ -9,17 +9,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.models.Arbeit;
 import com.example.myapplication.R;
-import com.example.myapplication.activities.AddWorkActivity;
+import com.example.myapplication.activities.ModifyWorkActivity;
+import com.example.myapplication.models.Arbeit;
 
 import java.util.List;
 
-public class ArbeitAdapter extends RecyclerView.Adapter<ArbeitAdapter.ArbeitViewHolder> {
+public class ArbeitAdapterZweitgutachter extends RecyclerView.Adapter<ArbeitAdapterZweitgutachter.ArbeitViewHolder> {
 
     private List<Arbeit> arbeitenListe;
 
-    public ArbeitAdapter(List<Arbeit> arbeitenListe) {
+    public ArbeitAdapterZweitgutachter(List<Arbeit> arbeitenListe) {
         this.arbeitenListe = arbeitenListe;
     }
 
@@ -27,7 +27,7 @@ public class ArbeitAdapter extends RecyclerView.Adapter<ArbeitAdapter.ArbeitView
     @Override
     public ArbeitViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.arbeit_item_betreuer, parent, false);
+                .inflate(R.layout.arbeit_item_zweitgutachter, parent, false);
         return new ArbeitViewHolder(view);
     }
 
@@ -36,15 +36,17 @@ public class ArbeitAdapter extends RecyclerView.Adapter<ArbeitAdapter.ArbeitView
         Arbeit arbeit = arbeitenListe.get(position);
         holder.textViewArbeitName.setText(arbeit.getNameDerArbeit());
         holder.textViewFachName.setText(arbeit.getStudienfach());
+        // Implementieren Sie hier die Logik für das Anklicken eines Items
+        holder.itemView.setOnClickListener(v -> {
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), AddWorkActivity.class);
-                intent.putExtra("arbeitUid", arbeit.getArbeitUid()); // Arbeit UID als Extra übergeben
-                v.getContext().startActivity(intent);
-            }
+            Intent intent = new Intent(v.getContext(), ModifyWorkActivity.class);
+            intent.putExtra("arbeitUid", arbeit.getArbeitUid());
+            v.getContext().startActivity(intent);
+
         });
+
+
+
     }
 
     @Override
@@ -52,16 +54,14 @@ public class ArbeitAdapter extends RecyclerView.Adapter<ArbeitAdapter.ArbeitView
         return arbeitenListe.size();
     }
 
-    public static class ArbeitViewHolder extends RecyclerView.ViewHolder {
-        public TextView textViewArbeitName;
-        public TextView textViewFachName;
+    static class ArbeitViewHolder extends RecyclerView.ViewHolder {
+        TextView textViewArbeitName, textViewFachName;
 
-        public ArbeitViewHolder(View itemView) {
+        ArbeitViewHolder(View itemView) {
             super(itemView);
             textViewArbeitName = itemView.findViewById(R.id.textViewArbeitNameZweitgutachter);
             textViewFachName = itemView.findViewById(R.id.textViewFachNameZweitgutachter);
-
-            // Initialisieren Sie hier andere Views des Arbeit-Items
         }
     }
 }
+

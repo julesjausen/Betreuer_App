@@ -43,7 +43,7 @@ public class DeciderActivity extends AppCompatActivity {
                                     intent = new Intent(DeciderActivity.this, BetreuerActivity.class);
                                     break;
                                 case "Zweitgutachter":
-                                    intent = new Intent(DeciderActivity.this, BetreuerActivity.class);
+                                    intent = new Intent(DeciderActivity.this, ZweitgutachterActivity.class);
                                     break;
                                 case "Student":
                                     intent = new Intent(DeciderActivity.this, StudentActivity.class);

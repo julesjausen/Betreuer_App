@@ -1,0 +1,42 @@
+<!-- Layout-Datei für die BetreuerDetailsStudentActivity -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.BetreuerDetailsStudentActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_betreuer_details"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <!-- TextView für den Namen des Betreuers -->
+    <TextView
+        android:id="@+id/textViewNameBetreuerStudent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar_betreuer_details"
+        android:padding="16dp"
+        android:textSize="20sp"
+        android:text="Name des Betreuers" />
+
+    <!-- TextView für die Beschreibung des Betreuers -->
+    <TextView
+        android:id="@+id/textViewBeschreibungBetreuerStudent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewNameBetreuerStudent"
+        android:padding="16dp"
+        android:textSize="16sp"
+        android:text="Beschreibung" />
+
+    <!-- RecyclerView für die Liste der Arbeiten -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewArbeitenStudent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewBeschreibungBetreuerStudent" />
+
+</RelativeLayout>

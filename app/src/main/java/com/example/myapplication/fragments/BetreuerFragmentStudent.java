@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,17 +54,17 @@ public class BetreuerFragmentStudent extends Fragment {
                 .whereEqualTo("role", "Betreuer")
                 .addSnapshotListener((snapshots, e) -> {
                     if (e != null) {
-                        Toast.makeText(getContext(), "Fehler beim Laden der Betreuer: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.w("BetreuerFragment", "SnapshotListener Fehler", e);
                         return;
                     }
                     betreuerListe.clear();
-                    if (snapshots != null) {
-                        for (DocumentSnapshot doc : snapshots.getDocuments()) {
-                            Betreuer betreuer = doc.toObject(Betreuer.class);
-                            betreuerListe.add(betreuer);
-                        }
-                        adapter.notifyDataSetChanged();
+                    for (DocumentSnapshot doc : snapshots.getDocuments()) {
+                        Betreuer betreuer = doc.toObject(Betreuer.class);
+                        betreuer.setBetreuerUid(doc.getId()); // Stellen Sie sicher, dass Sie die UID hier setzen
+                        betreuerListe.add(betreuer);
                     }
+                    adapter.notifyDataSetChanged();
                 });
     }
+
 }
