@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.models.Arbeit;
@@ -25,6 +26,7 @@ import java.util.Map;
 public class AddWorkActivity extends AppCompatActivity {
 
     private TextInputEditText editTextWorkName, editTextSubject, editTextDescription;
+    private TextView textViewHeaderZweitgutachter, textViewHeaderZustand, textViewHeaderRechnungsstatus;
     private FirebaseFirestore firestore;
     private FirebaseAuth auth;
     private Spinner spinnerZweitgutachter, spinnerZustand, spinnerRechnungsstatus;
@@ -59,6 +61,11 @@ public class AddWorkActivity extends AppCompatActivity {
         spinnerZweitgutachter = findViewById(R.id.spinnerZweitgutachterAddWork);
         spinnerZustand = findViewById(R.id.spinnerZustandAddWork);
         spinnerRechnungsstatus = findViewById(R.id.spinnerRechnungsstatusAddWork);
+        textViewHeaderZustand = findViewById(R.id. textViewZustandHeader);
+        textViewHeaderRechnungsstatus = findViewById(R.id.textViewRechnungsstatusHeader);
+        textViewHeaderZweitgutachter = findViewById(R.id.textViewZweitgutachterHeader);
+
+
 
         // Speichern-Button
         Button buttonSave = findViewById(R.id.buttonSaveAddWork);
@@ -216,6 +223,11 @@ public class AddWorkActivity extends AppCompatActivity {
                             spinnerZweitgutachter.setVisibility(View.VISIBLE);
                             spinnerZustand.setVisibility(View.VISIBLE);
                             spinnerRechnungsstatus.setVisibility(View.VISIBLE);
+                            textViewHeaderZweitgutachter.setVisibility(View.VISIBLE);
+                            textViewHeaderZustand.setVisibility(View.VISIBLE);
+                            textViewHeaderRechnungsstatus.setVisibility(View.VISIBLE);
+
+
 
                             // Prüfe, ob eine Zweitgutachter-UID vorhanden ist, und lade entsprechend die Zweitgutachter-Daten
                             if (arbeit.getZweitgutachterUid() != null && !arbeit.getZweitgutachterUid().isEmpty()) {

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".activities.BetreuerDetailsStudentActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -12,31 +13,99 @@
         android:background="?attr/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
+    <!-- Überschrift für "Name des Betreuers" -->
+    <TextView
+        android:id="@+id/textViewNameBetreuerStudentHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar_betreuer_details"
+        android:paddingStart="16dp"
+        android:padding="5dp"
+        android:text="Name des Betreuers"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?attr/colorPrimary" />
+
     <!-- TextView für den Namen des Betreuers -->
     <TextView
         android:id="@+id/textViewNameBetreuerStudent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar_betreuer_details"
-        android:padding="16dp"
+        android:layout_below="@id/textViewNameBetreuerStudentHeader"
+        android:paddingStart="16dp"
+        android:paddingBottom="16dp"
         android:textSize="20sp"
-        android:text="Name des Betreuers" />
+        android:text="Peter" />
+
+    <!-- Überschrift für "Fach" -->
+    <TextView
+        android:id="@+id/textViewFachBetreuerStudentHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewNameBetreuerStudent"
+        android:paddingStart="16dp"
+        android:padding="5dp"
+        android:text="Fach"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?attr/colorPrimary" />
+
+    <!-- TextView für das Fach des Betreuers -->
+    <TextView
+        android:id="@+id/textViewFachBetreuerStudent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewFachBetreuerStudentHeader"
+        android:paddingBottom="16dp"
+        android:paddingStart="16dp"
+
+        android:textSize="18sp"
+        android:text="Fach des Betreuers" />
+
+    <!-- Überschrift für "Beschreibung" -->
+    <TextView
+        android:id="@+id/textViewBeschreibungHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewFachBetreuerStudent"
+        android:paddingStart="16dp"
+        android:padding="5dp"
+        android:text="Beschreibung"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?attr/colorPrimary" />
 
     <!-- TextView für die Beschreibung des Betreuers -->
     <TextView
         android:id="@+id/textViewBeschreibungBetreuerStudent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textViewNameBetreuerStudent"
-        android:padding="16dp"
-        android:textSize="16sp"
-        android:text="Beschreibung" />
+        android:layout_below="@id/textViewBeschreibungHeader"
+        android:paddingBottom="16dp"
+        android:paddingStart="16dp"
+        android:textSize="18sp"
+        android:text="ich bin super" />
+
+    <!-- Überschrift für "Offene Arbeiten dieses Betreuers" -->
+    <TextView
+        android:id="@+id/textViewOffeneArbeitenHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewBeschreibungBetreuerStudent"
+        android:paddingStart="16dp"
+        android:padding="5dp"
+        android:text="Offene Arbeiten dieses Betreuers"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?attr/colorPrimary" />
 
     <!-- RecyclerView für die Liste der Arbeiten -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewArbeitenStudent"
+        android:paddingStart="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textViewBeschreibungBetreuerStudent" />
+        android:layout_below="@id/textViewOffeneArbeitenHeader"
+        android:paddingBottom="16dp" />
 
 </RelativeLayout>

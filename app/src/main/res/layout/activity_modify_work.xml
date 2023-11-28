@@ -11,12 +11,31 @@
         android:background="?attr/colorPrimary" />
 
     <TextView
+        android:id="@+id/textViewWorkNameHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name der Arbeit"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?attr/colorPrimary" />
+
+    <TextView
         android:id="@+id/textViewWorkNameZweitgutachter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="Name der Arbeit"
         android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/textViewDescriptionZweitgutachterHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Beschreibung"
+        android:layout_marginTop="16dp"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?attr/colorPrimary" />
 
     <TextView
         android:id="@+id/textViewDescriptionZweitgutachter"
@@ -25,6 +44,17 @@
         android:layout_marginTop="8dp"
         android:text="Beschreibung"
         android:textSize="16sp"/>
+
+
+    <TextView
+        android:id="@+id/textViewStatusZweitgutachterHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Status"
+        android:layout_marginTop="16dp"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?attr/colorPrimary" />
 
     <TextView
         android:id="@+id/textViewStatusZweitgutachter"
@@ -35,11 +65,14 @@
         android:textSize="16sp"/>
 
     <TextView
+        android:id="@+id/textViewRechnungsstatusZweitgutachterHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:text="Rechnungsstatus"
-        android:textSize="16sp"/>
+        android:layout_marginTop="16dp"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?attr/colorPrimary" />
 
     <Spinner
         android:id="@+id/spinnerRechnungsstatusAddWork"
@@ -52,19 +85,28 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:orientation="horizontal"
-        android:gravity="end">
+        android:gravity="bottom">
 
+        <!-- Button "Abbrechen" -->
         <Button
             android:id="@+id/buttonCancelZweitgutachter"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="Abbrechen"/>
 
+        <!-- Zwischenraum zwischen den Buttons -->
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+
+        <!-- Button "Speichern" -->
         <Button
             android:id="@+id/buttonSaveAddWork"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:text="Speichern"/>
     </LinearLayout>
 </LinearLayout>

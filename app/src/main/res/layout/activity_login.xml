@@ -37,7 +37,8 @@
             android:id="@+id/inputEditPasswort"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Passwort" />
+            android:hint="Passwort"
+            android:inputType="textPassword"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 

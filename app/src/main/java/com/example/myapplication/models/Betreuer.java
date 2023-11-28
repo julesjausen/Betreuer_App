@@ -3,8 +3,6 @@ package com.example.myapplication.models;
 public class Betreuer {
     private String name;
 
-
-
     public void setName(String name) {
         this.name = name;
     }
@@ -31,5 +29,15 @@ public class Betreuer {
 
     public void setBetreuerUid(String betreuerUid) {
         this.betreuerUid = betreuerUid;
+    }
+
+    public String fach;
+
+    public String getFach() {
+        return fach;
+    }
+
+    public void setFach(String fach) {
+        this.fach = fach;
     }
 }

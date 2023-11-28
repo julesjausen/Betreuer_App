@@ -60,31 +60,73 @@
             android:hint="Beschreibung" />
     </com.google.android.material.textfield.TextInputLayout>
 
+
+
+
+
+
+
+
+    <TextView
+        android:id="@+id/textViewZweitgutachterHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textInputDescriptionAddWork"
+        android:text="Zweitgutachter"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?attr/colorPrimary"
+        android:visibility="gone"/>
     <!-- Spinner für Zweitgutachter -->
     <Spinner
         android:id="@+id/spinnerZweitgutachterAddWork"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textInputDescriptionAddWork"
-        android:layout_marginTop="16dp"
+        android:layout_below="@id/textViewZweitgutachterHeader"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="16dp"
         android:visibility="gone"/>
-
+    <TextView
+        android:id="@+id/textViewZustandHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinnerZweitgutachterAddWork"
+        android:text="Zustand"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?attr/colorPrimary"
+        android:visibility="gone"/>
     <!-- Spinner für Zustand -->
     <Spinner
         android:id="@+id/spinnerZustandAddWork"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/spinnerZweitgutachterAddWork"
-        android:layout_marginTop="16dp"
+        android:layout_below="@id/textViewZustandHeader"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="16dp"
         android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/textViewRechnungsstatusHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinnerZustandAddWork"
+        android:text="Rechnungsstatus"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?attr/colorPrimary"
+        android:visibility="gone"/>
+
+
 
     <!-- Spinner für Rechnungsstatus -->
     <Spinner
         android:id="@+id/spinnerRechnungsstatusAddWork"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/spinnerZustandAddWork"
-        android:layout_marginTop="16dp"
+        android:layout_below="@id/textViewRechnungsstatusHeader"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="16dp"
         android:visibility="gone"/>
 
     <!-- Button für "Speichern" -->

@@ -18,7 +18,7 @@ import java.util.List;
 
 public class BetreuerDetailsStudentActivity extends AppCompatActivity {
 
-    private TextView textViewBetreuerName, textViewBetreuerBeschreibung;
+    private TextView textViewBetreuerName, textViewBetreuerBeschreibung,textViewFachBetreuerStudent;
     private RecyclerView recyclerViewArbeiten;
     private ArbeitAdapterOffenStudent adapter;
     private List<Arbeit> arbeitenListe;
@@ -35,6 +35,8 @@ public class BetreuerDetailsStudentActivity extends AppCompatActivity {
         firestore = FirebaseFirestore.getInstance();
         textViewBetreuerName = findViewById(R.id.textViewNameBetreuerStudent);
         textViewBetreuerBeschreibung = findViewById(R.id.textViewBeschreibungBetreuerStudent);
+        textViewFachBetreuerStudent = findViewById(R.id.textViewFachBetreuerStudent);
+
         recyclerViewArbeiten = findViewById(R.id.recyclerViewArbeitenStudent);
         arbeitenListe = new ArrayList<>();
         adapter = new ArbeitAdapterOffenStudent(arbeitenListe, this); // this ist der Context der Activity
@@ -66,9 +68,11 @@ public class BetreuerDetailsStudentActivity extends AppCompatActivity {
                 .addOnSuccessListener(documentSnapshot -> {
                     String name = documentSnapshot.getString("name");
                     String beschreibung = documentSnapshot.getString("beschreibung");
+                    String fach = documentSnapshot.getString("fach");
 
                     textViewBetreuerName.setText(name);
                     textViewBetreuerBeschreibung.setText(beschreibung);
+                    textViewFachBetreuerStudent.setText(fach);
                 })
                 .addOnFailureListener(e -> {
                     // Fehlerbehandlung

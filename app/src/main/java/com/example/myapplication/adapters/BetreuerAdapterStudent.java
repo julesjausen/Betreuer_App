@@ -40,11 +40,9 @@ public class BetreuerAdapterStudent extends RecyclerView.Adapter<BetreuerAdapter
         Log.d("BetreuerAdapter", "Betreuer UID: " + betreuer.getBetreuerUid());
 
         holder.textViewNameBetreuerStudent.setText(betreuer.getName());
+        holder.textViewFachBetreuerStudent.setText(betreuer.getFach());
 
-        // Angenommen, Ihr Betreuer-Modell hat eine Methode getName()
 
-        // Setzen Sie den OnClickListener, wenn Sie später eine Aktion beim Klicken implementieren möchten.
-        // Zum Beispiel, um eine Detailansicht eines Betreuers zu öffnen.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,10 +61,13 @@ public class BetreuerAdapterStudent extends RecyclerView.Adapter<BetreuerAdapter
 
     public static class BetreuerViewHolder extends RecyclerView.ViewHolder {
         public TextView textViewNameBetreuerStudent;
+        public TextView textViewFachBetreuerStudent;
 
         public BetreuerViewHolder(View itemView) {
             super(itemView);
             textViewNameBetreuerStudent = itemView.findViewById(R.id.name_betreuer_student);
+            textViewFachBetreuerStudent = itemView.findViewById(R.id.name_fach_betreuer_student);
+
         }
     }
 }
