@@ -1,0 +1,83 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <!-- Views für den Namen -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:textStyle="bold"
+        android:textColor="?attr/colorPrimary" />
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/editTextNameProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName" />
+
+    <!-- Views für das Fach -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fach"
+        android:textStyle="bold"
+        android:textColor="?attr/colorPrimary" />
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/editTextFachProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName" />
+
+    <!-- Views für die Beschreibung -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Beschreibung"
+        android:textStyle="bold"
+        android:textColor="?attr/colorPrimary" />
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/editTextBeschreibungProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mail-Adresse"
+        android:textStyle="bold"
+        android:textColor="?attr/colorPrimary" />
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/editTextEmailProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine" />
+
+    <!-- Views für die UID -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="UID"
+        android:textStyle="bold"
+        android:textColor="?attr/colorPrimary" />
+    <TextView
+        android:id="@+id/textViewUidProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- Views für die Rolle -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Rolle"
+        android:textStyle="bold"
+        android:textColor="?attr/colorPrimary" />
+    <TextView
+        android:id="@+id/textViewRoleProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

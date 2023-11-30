@@ -1,24 +1,33 @@
 package com.example.myapplication.adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.fragments.UploadDialogFragment;
 import com.example.myapplication.models.Arbeit;
 import com.example.myapplication.R;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
 public class ArbeitAdapterBetreutStudent extends RecyclerView.Adapter<ArbeitAdapterBetreutStudent.ArbeitViewHolder> {
 
     private final List<Arbeit> arbeitenListe;
+    private Context context;
 
-    public ArbeitAdapterBetreutStudent(List<Arbeit> arbeitenListe) {
+
+    public ArbeitAdapterBetreutStudent(List<Arbeit> arbeitenListe, Context context) {
         this.arbeitenListe = arbeitenListe;
+        this.context = context;
+
     }
 
     @NonNull
@@ -36,7 +45,7 @@ public class ArbeitAdapterBetreutStudent extends RecyclerView.Adapter<ArbeitAdap
         holder.textViewArbeitZustand.setText(arbeit.getZustand());
 
         holder.itemView.setOnClickListener(v -> {
-            // Implementieren Sie Ihre Logik beim Klicken auf ein Item
+            fetchTutorAndOpenDialog(arbeit);
         });
     }
 
@@ -54,4 +63,32 @@ public class ArbeitAdapterBetreutStudent extends RecyclerView.Adapter<ArbeitAdap
             textViewArbeitZustand = itemView.findViewById(R.id.textViewArbeitZustandBetreutStudent);
         }
     }
+    private void fetchTutorAndOpenDialog(Arbeit arbeit) {
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        String betreuerUid = arbeit.getBetreuerUid();
+
+        firestore.collection("user").document(betreuerUid).get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        String tutorName = documentSnapshot.getString("name");
+                        String tutorEmail = documentSnapshot.getString("email");
+
+                        // Öffne das DialogFragment mit den geholten Daten
+                        UploadDialogFragment dialogFragment = new UploadDialogFragment(
+                                tutorName,
+                                tutorEmail,
+                                arbeit.getNameDerArbeit(),
+                                arbeit.getBeschreibung(),
+                                arbeit.getArbeitUid());
+
+                        dialogFragment.show(((AppCompatActivity) context).getSupportFragmentManager(), "thesisDetails");
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(context, "Fehler beim Laden der Betreuerdaten.", Toast.LENGTH_SHORT).show();
+                });
+    }
+
+
+
 }

@@ -2,6 +2,9 @@ package com.example.myapplication.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -64,6 +67,8 @@ public class AddWorkActivity extends AppCompatActivity {
         textViewHeaderZustand = findViewById(R.id. textViewZustandHeader);
         textViewHeaderRechnungsstatus = findViewById(R.id.textViewRechnungsstatusHeader);
         textViewHeaderZweitgutachter = findViewById(R.id.textViewZweitgutachterHeader);
+        TextView linkTextView = findViewById(R.id.linkTextView);
+
 
 
 
@@ -90,7 +95,7 @@ public class AddWorkActivity extends AppCompatActivity {
         String arbeitUid = getIntent().getStringExtra("arbeitUid");
         Toast.makeText(this, "arbeit uid" + arbeitUid, Toast.LENGTH_SHORT).show();
         if (arbeitUid != null && !arbeitUid.isEmpty()) {
-            // Arbeit wird bearbeitet
+            loadAndDisplayLink(arbeitUid);
             if (getSupportActionBar() != null) {
                 getSupportActionBar().setTitle("Arbeit bearbeiten");
             }
@@ -175,6 +180,28 @@ public class AddWorkActivity extends AppCompatActivity {
                     })
                     .addOnFailureListener(e -> Toast.makeText(AddWorkActivity.this, "Fehler beim Speichern der Arbeit.", Toast.LENGTH_SHORT).show());
         }
+    }
+
+    private void loadAndDisplayLink(String arbeitUid) {
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        TextView linkTextView = findViewById(R.id.linkTextView); // ID entsprechend Ihrer Layout-Datei
+
+        firestore.collection("thesis").document(arbeitUid).get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        String fileRef = documentSnapshot.getString("storageRef");
+                        if (fileRef != null && !fileRef.isEmpty()) {
+                            linkTextView.setVisibility(View.VISIBLE);
+                            linkTextView.setText("Hochgeladene Datei ansehen");
+                            linkTextView.setOnClickListener(v -> {
+                                Intent intent = new Intent(Intent.ACTION_VIEW);
+                                intent.setData(Uri.parse(fileRef));
+                                startActivity(intent);
+                            });
+                        }
+                    }
+                })
+                .addOnFailureListener(e -> Toast.makeText(this, "Fehler beim Laden der Datei-URL", Toast.LENGTH_SHORT).show());
     }
 
 

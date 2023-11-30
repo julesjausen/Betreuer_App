@@ -129,6 +129,18 @@
         android:layout_marginBottom="16dp"
         android:visibility="gone"/>
 
+    <TextView
+        android:id="@+id/linkTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="Hochgeladene Datei ansehen"
+        android:layout_below="@id/spinnerRechnungsstatusAddWork"
+        android:visibility="gone"
+        android:textColor="@color/material_dynamic_primary60" />
+
+
     <!-- Button für "Speichern" -->
     <Button
         android:id="@+id/buttonSaveAddWork"

@@ -20,6 +20,7 @@ import android.view.View;
 import com.example.myapplication.fragments.BetreuteArbeitenFragment;
 import com.example.myapplication.fragments.OffeneArbeitenFragment;
 import com.example.myapplication.R;
+import com.example.myapplication.fragments.ProfileDialogFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -122,7 +123,8 @@ public class BetreuerActivity extends AppCompatActivity {
 
             return true;
         } else if (id == R.id.action_profile) {
-            // Starten Sie die Profil Activity oder implementieren Sie Funktionalität
+
+            openProfileDialog();
             return true;
         }
 
@@ -138,5 +140,11 @@ public class BetreuerActivity extends AppCompatActivity {
             item.setTitle(s);
         }
         return super.onPrepareOptionsMenu(menu);
+    }
+
+    private void openProfileDialog() {
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        ProfileDialogFragment profileDialog = new ProfileDialogFragment(userId);
+        profileDialog.show(getSupportFragmentManager(), "ProfileDialogFragment");
     }
 }

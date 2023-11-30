@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import com.example.myapplication.fragments.BetreuerFragmentStudent;
 import com.example.myapplication.fragments.ArbeitenFragmentStudent;
 import com.example.myapplication.R;
+import com.example.myapplication.fragments.ProfileDialogFragment;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -100,7 +101,8 @@ public class StudentActivity extends AppCompatActivity {
             finish();
             return true;
         } else if (id == R.id.action_profile) {
-            // Profil Activity starten oder Funktionalität hier implementieren
+            openProfileDialog();
+
             return true;
         }
 
@@ -116,5 +118,11 @@ public class StudentActivity extends AppCompatActivity {
             item.setTitle(s);
         }
         return super.onPrepareOptionsMenu(menu);
+    }
+
+    private void openProfileDialog() {
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        ProfileDialogFragment profileDialog = new ProfileDialogFragment(userId);
+        profileDialog.show(getSupportFragmentManager(), "ProfileDialogFragment");
     }
 }

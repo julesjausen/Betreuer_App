@@ -1,0 +1,66 @@
+<!-- layout/dialog_thesis_details.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tutor Name"
+        android:textStyle="bold"
+        android:textColor="?attr/colorPrimary"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/textViewTutorNameDialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tutor Name"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tutor Email"
+        android:textStyle="bold"
+        android:textColor="?attr/colorPrimary"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/textViewTutorEmailDialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tutor Email"
+        android:layout_marginBottom="16dp"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Beschreibung der Arbeit"
+        android:textStyle="bold"
+        android:textColor="?attr/colorPrimary"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/textViewWorkDescriptionDialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Beschreibung der Arbeit"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/buttonSelectFile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Datei auswählen"/>
+
+    <Button
+        android:id="@+id/uploadFileButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Datei hochladen"
+        android:layout_marginTop="16dp"/>
+</LinearLayout>

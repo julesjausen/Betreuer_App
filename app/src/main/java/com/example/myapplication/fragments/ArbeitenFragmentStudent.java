@@ -41,7 +41,7 @@ public class ArbeitenFragmentStudent extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         arbeitenListe = new ArrayList<>();
-        adapter = new ArbeitAdapterBetreutStudent(arbeitenListe);
+        adapter = new ArbeitAdapterBetreutStudent(arbeitenListe, getContext());
         recyclerView.setAdapter(adapter);
 
         loadArbeiten();

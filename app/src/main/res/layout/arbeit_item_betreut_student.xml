@@ -3,22 +3,59 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:background="@drawable/item_background"
+    android:layout_margin="2dp"
     android:padding="10dp">
 
-    <TextView
-        android:id="@+id/textViewArbeitNameBetreutStudent"
+    <!-- Vertikaler Container für den Namen der Arbeit -->
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:text="Arbeit Name"
-        android:textSize="16sp"/>
+        android:layout_weight="1.8"
+        android:orientation="vertical"
+        android:layout_gravity="start"
+        android:layout_marginEnd="8dp">
 
-    <TextView
-        android:id="@+id/textViewArbeitZustandBetreutStudent"
+        <!-- Kleiner Titel für "Name der Arbeit" -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name der Arbeit"
+            android:textSize="12sp"
+            android:textStyle="bold"/>
+
+        <!-- TextView für den eigentlichen Namen der Arbeit -->
+        <TextView
+            android:id="@+id/textViewArbeitNameBetreutStudent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Arbeit Name"/>
+    </LinearLayout>
+
+    <!-- Vertikaler Container für den Status -->
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Zustand"
-        android:textSize="16sp"
-        android:textAlignment="textEnd"/>
+        android:orientation="vertical"
+        android:layout_gravity="end">
+
+        <!-- Kleiner Titel für "Zustand" -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Zustand"
+            android:textSize="12sp"
+            android:textStyle="bold"/>
+
+        <!-- TextView für den eigentlichen Zustand -->
+        <TextView
+            android:id="@+id/textViewArbeitZustandBetreutStudent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Zustand"/>
+    </LinearLayout>
+
 </LinearLayout>

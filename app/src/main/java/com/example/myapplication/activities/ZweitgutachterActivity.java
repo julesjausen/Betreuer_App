@@ -15,6 +15,7 @@ import android.view.MenuItem;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapters.ArbeitAdapterZweitgutachter;
+import com.example.myapplication.fragments.ProfileDialogFragment;
 import com.example.myapplication.models.Arbeit;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -89,7 +90,9 @@ public class ZweitgutachterActivity extends AppCompatActivity {
             finish();
             return true;
         } else if (id == R.id.action_profile) {
-            // Öffnen Sie die Profilansicht
+
+            openProfileDialog();
+
             return true;
         }
 
@@ -104,6 +107,12 @@ public class ZweitgutachterActivity extends AppCompatActivity {
             item.setTitle(s);
         }
         return super.onPrepareOptionsMenu(menu);
+    }
+
+    private void openProfileDialog() {
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        ProfileDialogFragment profileDialog = new ProfileDialogFragment(userId);
+        profileDialog.show(getSupportFragmentManager(), "ProfileDialogFragment");
     }
 
 }
