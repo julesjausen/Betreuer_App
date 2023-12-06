@@ -1,5 +1,6 @@
 package com.example.myapplication.activities;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -100,7 +101,7 @@ public class BetreuerActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // Macht das Menü auf
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
@@ -131,8 +132,8 @@ public class BetreuerActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
+
+    public boolean onPrepareOptionsMenu(@NonNull Menu menu) {
         for (int i = 0; i < menu.size(); i++) {
             MenuItem item = menu.getItem(i);
             SpannableString s = new SpannableString(menu.getItem(i).getTitle());

@@ -93,7 +93,6 @@ public class AddWorkActivity extends AppCompatActivity {
 
         // Überprüfen, ob eine arbeitUid übergeben wurde
         String arbeitUid = getIntent().getStringExtra("arbeitUid");
-        Toast.makeText(this, "arbeit uid" + arbeitUid, Toast.LENGTH_SHORT).show();
         if (arbeitUid != null && !arbeitUid.isEmpty()) {
             loadAndDisplayLink(arbeitUid);
             if (getSupportActionBar() != null) {
@@ -203,39 +202,6 @@ public class AddWorkActivity extends AppCompatActivity {
                 })
                 .addOnFailureListener(e -> Toast.makeText(this, "Fehler beim Laden der Datei-URL", Toast.LENGTH_SHORT).show());
     }
-
-
-/*
-    private void getZweitgutachterUidByName(String name, UidConsumer uidConsumer) {
-        firestore.collection("user")
-                .whereEqualTo("name", name)
-                .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    if (!queryDocumentSnapshots.isEmpty()) {
-                        String uid = queryDocumentSnapshots.getDocuments().get(0).getId();
-                        uidConsumer.accept(uid);
-                    } else {
-                        uidConsumer.accept("N/A");
-                    }
-                })
-                .addOnFailureListener(e -> Toast.makeText(this, "Fehler beim Laden des Zweitgutachters", Toast.LENGTH_SHORT).show());
-    }
-
- */
-
-    private void saveOrUpdateWork(Map<String, Object> work, String arbeitUid) {
-        if (arbeitUid != null && !arbeitUid.isEmpty()) {
-            firestore.collection("thesis").document(arbeitUid).update(work)
-                    .addOnSuccessListener(aVoid -> Toast.makeText(AddWorkActivity.this, "Arbeit aktualisiert", Toast.LENGTH_SHORT).show())
-                    .addOnFailureListener(e -> Toast.makeText(AddWorkActivity.this, "Fehler beim Aktualisieren der Arbeit", Toast.LENGTH_SHORT).show());
-        } else {
-            firestore.collection("thesis").add(work)
-                    .addOnSuccessListener(documentReference -> Toast.makeText(AddWorkActivity.this, "Arbeit gespeichert", Toast.LENGTH_SHORT).show())
-                    .addOnFailureListener(e -> Toast.makeText(AddWorkActivity.this, "Fehler beim Speichern der Arbeit", Toast.LENGTH_SHORT).show());
-        }
-    }
-
-
     private void loadArbeitData(String arbeitUid) {
         firestore.collection("thesis").document(arbeitUid).get()
                 .addOnSuccessListener(documentSnapshot -> {
