@@ -23,6 +23,8 @@ import com.google.firebase.firestore.Query;
 import java.util.ArrayList;
 import java.util.List;
 
+
+// Fragment zur Darstellung von betreute Arbeiten für Betreuer:innen
 public class BetreuteArbeitenFragment extends Fragment {
 
     private RecyclerView recyclerView;
@@ -31,14 +33,16 @@ public class BetreuteArbeitenFragment extends Fragment {
     private FirebaseFirestore firestore;
     private FirebaseAuth auth;
 
+    //notwendiger leerer konstruktor
     public BetreuteArbeitenFragment() {
-        // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_betreute_arbeiten, container, false);
 
+
+        //initialisieren on firestore, auth, recyclerview, adapter etc
         firestore = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
         recyclerView = view.findViewById(R.id.recyclerViewBetreuteArbeiten);
@@ -48,12 +52,13 @@ public class BetreuteArbeitenFragment extends Fragment {
         adapter = new BetreuteArbeitenAdapter(arbeitenListe);
         recyclerView.setAdapter(adapter);
 
+
         setUpRealtimeUpdates();
 
         return view;
     }
 
-
+    //sobald sich was ändert, wird diese änderung angezeigt
     private void setUpRealtimeUpdates() {
         String currentBetreuerUid = auth.getCurrentUser() != null ? auth.getCurrentUser().getUid() : "";
 
@@ -62,9 +67,6 @@ public class BetreuteArbeitenFragment extends Fragment {
                 .whereNotEqualTo("zustand", "offen")
                 .orderBy("zustand") // zuerst nach Zustand sortieren
                 .orderBy("nameDerArbeit"); // dann nach Name der Arbeit sortieren
-
-
-
 
         query.addSnapshotListener((snapshots, e) -> {
             if (e != null) {

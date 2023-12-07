@@ -25,18 +25,13 @@ public class LoginActivity extends AppCompatActivity {
     TextInputEditText editTextEmail, editTextPassword;
     Button buttonLogin;
 
-    // [START declare_auth]
     private FirebaseAuth mAuth;
-    // [END declare_auth]
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         mAuth=FirebaseAuth.getInstance();
-
-
         editTextEmail=findViewById(R.id.inputEditEmail);
         editTextPassword=findViewById(R.id.inputEditPasswort);
         buttonLogin=findViewById(R.id.buttonLogin);
@@ -48,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
                 email = String.valueOf(editTextEmail.getText());
                 password = String.valueOf(editTextPassword.getText());
 
-
+                //Überprüfen ob Textfelder leer
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(LoginActivity.this, "Enter Email", Toast.LENGTH_SHORT).show();
 
@@ -65,11 +60,11 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
+                                    // Sign in erfolg, user wird weitergeschickt
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     sendUserToDeciderActivity();
                                 } else {
-                                    // If sign in fails, display a message to the user.
+                                    // sign in fail, benachrichtigung
                                     Toast.makeText(LoginActivity.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
                                     
@@ -81,18 +76,15 @@ public class LoginActivity extends AppCompatActivity {
 
         });
     }
-
+    //auch denim onStart-Lifecycle checken, ob user != null
     @Override
     public void onStart() {
         super.onStart();
-
-        // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
             sendUserToDeciderActivity();
         }
     }
-
 
     private void sendUserToDeciderActivity() {
         Intent intent = new Intent(LoginActivity.this, DeciderActivity.class);

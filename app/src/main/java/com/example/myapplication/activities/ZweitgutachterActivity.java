@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ZweitgutachterActivity extends AppCompatActivity {
+    //Für Zweitgutachter, zeigt die Liste der Arbeiten, für die der Zweitgutachter vorgesehen ist.
 
     private RecyclerView recyclerView;
     private ArbeitAdapterZweitgutachter adapter;
@@ -42,16 +43,17 @@ public class ZweitgutachterActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerViewZweitgutachter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+
         arbeitenListe = new ArrayList<>();
         adapter = new ArbeitAdapterZweitgutachter(arbeitenListe);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(adapter); //der adapter der recycler view
 
         Toolbar toolbar = findViewById(R.id.toolbarZweitgutachter);
         setSupportActionBar(toolbar);
 
         loadArbeiten();
     }
-
+    //Arbeiten werden geladen
     private void loadArbeiten() {
         firestore.collection("thesis")
                 .whereEqualTo("zweitgutachterUid", currentZweitgutachterUid)
@@ -70,13 +72,14 @@ public class ZweitgutachterActivity extends AppCompatActivity {
                     }
                 });
     }
-
+    //Menü wird inflated
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 
+    //Die Optionen des Menüs werden beschrieben und die Funktionen hinterlegt
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -98,6 +101,7 @@ public class ZweitgutachterActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    //Hintergrundfarbe Menü
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         for (int i = 0; i < menu.size(); i++) {
@@ -108,7 +112,7 @@ public class ZweitgutachterActivity extends AppCompatActivity {
         }
         return super.onPrepareOptionsMenu(menu);
     }
-
+    //dialogfenster zum anpassen des profils
     private void openProfileDialog() {
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         ProfileDialogFragment profileDialog = new ProfileDialogFragment(userId);

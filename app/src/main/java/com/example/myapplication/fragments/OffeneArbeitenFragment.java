@@ -23,6 +23,7 @@ import com.google.firebase.firestore.Query;
 import java.util.ArrayList;
 import java.util.List;
 
+//fragment für das anzeigen von offenen arbeiten für betreuer
 public class OffeneArbeitenFragment extends Fragment {
 
     private RecyclerView recyclerView;
@@ -31,14 +32,14 @@ public class OffeneArbeitenFragment extends Fragment {
     private FirebaseFirestore firestore;
     private FirebaseAuth auth;
 
+    //notwendiger leerer Konstruktor
     public OffeneArbeitenFragment() {
-        // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_offene_arbeiten, container, false);
-
+        //initialisieren der komponenten
         firestore = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
         recyclerView = view.findViewById(R.id.recyclerViewOffeneArbeiten);
@@ -53,6 +54,8 @@ public class OffeneArbeitenFragment extends Fragment {
         return view;
     }
 
+
+    //sobald es eine änderung gibt, ändert sich die recycler view
     private void setUpRealtimeUpdates() {
         String currentBetreuerUid = auth.getCurrentUser() != null ? auth.getCurrentUser().getUid() : "";
 

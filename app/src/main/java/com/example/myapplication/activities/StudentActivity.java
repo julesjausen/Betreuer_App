@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentActivity extends AppCompatActivity {
+    //die activity für studenten, um die fragmente zu laden
 
     private ViewPager viewPager;
     private TabLayout tabLayout;
@@ -46,6 +47,7 @@ public class StudentActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
     }
 
+    //Fragmente werden im Viewpager vorbereitet
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new BetreuerFragmentStudent(), "Betreuer");
@@ -83,12 +85,14 @@ public class StudentActivity extends AppCompatActivity {
         }
     }
 
+    //Menü wird initialisiert
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 
+    //Logout und Profil Funktion des Menü initialisieren
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -109,6 +113,7 @@ public class StudentActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //Menü Hintergrundfarbe anpassen
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         for (int i = 0; i < menu.size(); i++) {
@@ -119,7 +124,7 @@ public class StudentActivity extends AppCompatActivity {
         }
         return super.onPrepareOptionsMenu(menu);
     }
-
+    //Öffnet das Dialogframent zum Anpassen des Profils
     private void openProfileDialog() {
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         ProfileDialogFragment profileDialog = new ProfileDialogFragment(userId);

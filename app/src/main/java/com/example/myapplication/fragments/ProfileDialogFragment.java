@@ -20,10 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * A simple {@link Fragment} subclass.
- * create an instance of this fragment.
- */
+//öffnet ein kleines Fenster, hier für das Anzeigen und Anpassen des Profils eines Nutzers
 public class ProfileDialogFragment extends DialogFragment {
 
     private TextInputEditText editTextName, editTextFach, editTextBeschreibung, editTextEmail;
@@ -31,6 +28,8 @@ public class ProfileDialogFragment extends DialogFragment {
     private FirebaseFirestore firestore;
     private String userId;
 
+
+    //konstruktor
     public ProfileDialogFragment(String userId) {
         // Benötigt die User-ID, um die richtigen Daten zu laden
         this.userId = userId;
@@ -41,8 +40,6 @@ public class ProfileDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        // Inflate und setze das Layout für das Dialog
-        // Annahme: Das Layout heißt fragment_profile_dialog.xml
         View view = requireActivity().getLayoutInflater().inflate(R.layout.fragment_profile_dialog, null);
         editTextName = view.findViewById(R.id.editTextNameProfile);
         editTextFach = view.findViewById(R.id.editTextFachProfile);
@@ -83,16 +80,16 @@ public class ProfileDialogFragment extends DialogFragment {
         String beschreibung = editTextBeschreibung.getText().toString();
         String email = editTextEmail.getText().toString();
 
-        // Überprüfen Sie, ob die Eingabefelder nicht leer sind
+        // Überprüfen, ob die Eingabefelder nicht leer sind
         if (name.isEmpty() || (fach.isEmpty() && editTextFach.getVisibility() == View.VISIBLE) || beschreibung.isEmpty()|| email.isEmpty())  {
             if (isAdded()) {
                 Toast.makeText(requireContext(), "Alle Felder müssen ausgefüllt werden.", Toast.LENGTH_SHORT).show();
                 return;
             }
-            return; // Verhindern Sie das Schließen des Dialogs, wenn die Felder leer sind
+            return; // Verhindert schließen des Dialogs, wenn die Felder leer sind
         }
 
-        // Speichere die aktualisierten Daten in Firestore
+        // Speicher die aktualisierten Daten in Firestore
         DocumentReference userRef = firestore.collection("user").document(userId);
 
         Map<String, Object> updates = new HashMap<>();
@@ -107,7 +104,7 @@ public class ProfileDialogFragment extends DialogFragment {
                 .addOnSuccessListener(aVoid -> {
                     if (isAdded()) {
                         Toast.makeText(requireContext(), "Profil aktualisiert.", Toast.LENGTH_SHORT).show();
-                        dismiss(); // Schließen Sie das Dialogfenster nach erfolgreichem Speichern
+                        dismiss(); // Schließe Dialogfenster nach Speichern
                     }
                 })
                 .addOnFailureListener(e -> {

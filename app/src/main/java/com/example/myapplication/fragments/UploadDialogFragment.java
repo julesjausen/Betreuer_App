@@ -23,6 +23,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+// DialogFragment für das Hochladen einer Datei und Anzeigen von Arbeit-Details.
 public class UploadDialogFragment extends DialogFragment {
 
     private String tutorName;
@@ -35,6 +36,7 @@ public class UploadDialogFragment extends DialogFragment {
 
     private static final int FILE_SELECT_CODE = 0;
 
+    // Konstruktor für das DialogFragment, empfängt notwendige Daten über Parameter
     public UploadDialogFragment(String tutorName, String tutorEmail, String workName, String workDescription, String thesisUid) {
         this.tutorName = tutorName;
         this.tutorEmail = tutorEmail;
@@ -49,6 +51,7 @@ public class UploadDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
+        // Layout-Inflation für Dialog
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.fragment_upload_dialog, null);
 
@@ -64,14 +67,18 @@ public class UploadDialogFragment extends DialogFragment {
 
         selectFileButton.setOnClickListener(v -> openFileSelector());
 
+        // Event-Listener für Dateiauswahl und Upload-Buttons
         uploadFileButton.setOnClickListener(v -> {
             if (fileUri != null) {
+                // Hochladen der ausgewählten Datei
                 uploadFileToFirebaseStorage(fileUri, thesisUid);
             } else {
+                // Benutzer darauf hinweisen, dass zuerst eine Datei ausgewählt werden muss
                 Toast.makeText(getContext(), "Bitte wählen Sie zuerst eine Datei aus.", Toast.LENGTH_SHORT).show();
             }
         });
 
+        // Titel des Dialogs setzen
         builder.setTitle(workName);
 
         builder.setView(view)
@@ -80,6 +87,7 @@ public class UploadDialogFragment extends DialogFragment {
         return builder.create();
     }
 
+    // Methode zum Öffnen eines Dateiauswahlfensters
     private void openFileSelector() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("*/*");
@@ -88,10 +96,12 @@ public class UploadDialogFragment extends DialogFragment {
         try {
             startActivityForResult(Intent.createChooser(intent, "Wählen Sie eine Datei"), FILE_SELECT_CODE);
         } catch (android.content.ActivityNotFoundException ex) {
+            // Benutzer informieren, falls kein Dateimanager verfügbar ist
             Toast.makeText(getContext(), "Bitte installieren Sie einen Dateimanager.", Toast.LENGTH_SHORT).show();
         }
     }
 
+    // Methode zur Behandlung der Dateiauswahl
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == FILE_SELECT_CODE && resultCode == Activity.RESULT_OK) {
@@ -101,11 +111,12 @@ public class UploadDialogFragment extends DialogFragment {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    // Methode zum Hochladen der Datei zu Firebase Storage
     private void uploadFileToFirebaseStorage(Uri fileUri, String thesisUid) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
 
-        // Hier den Pfad und den Dateinamen für Firebase Storage festlegen
+        // Festlegen des Pfads und Namens für die Datei in Firebase Storage
         StorageReference fileRef = storageRef.child("uploaded_files/" + fileUri.getLastPathSegment());
         UploadTask uploadTask = fileRef.putFile(fileUri);
 
@@ -118,6 +129,7 @@ public class UploadDialogFragment extends DialogFragment {
         }).addOnFailureListener(e -> Toast.makeText(getContext(), "Fehler beim Hochladen der Datei", Toast.LENGTH_SHORT).show());
     }
 
+    // Methode zum Speichern der Dateireferenz in Firestore
     private void saveFileReferenceInFirestore(String thesisUid, String fileUrl) {
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         DocumentReference thesisRef = firestore.collection("thesis").document(thesisUid);
@@ -126,5 +138,4 @@ public class UploadDialogFragment extends DialogFragment {
                 .addOnSuccessListener(aVoid -> Toast.makeText(getContext(), "Dateireferenz erfolgreich gespeichert.", Toast.LENGTH_SHORT).show())
                 .addOnFailureListener(e -> Toast.makeText(getContext(), "Fehler beim Speichern der Dateireferenz.", Toast.LENGTH_SHORT).show());
     }
-
 }

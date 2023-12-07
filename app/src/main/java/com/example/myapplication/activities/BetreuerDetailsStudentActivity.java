@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BetreuerDetailsStudentActivity extends AppCompatActivity {
+    //Activity die für die Studenten die Details und die offenen Arbeiten der Betreuer anzeigt.
 
     private TextView textViewBetreuerName, textViewBetreuerBeschreibung,textViewFachBetreuerStudent;
     private RecyclerView recyclerViewArbeiten;
@@ -61,7 +62,7 @@ public class BetreuerDetailsStudentActivity extends AppCompatActivity {
     }
 
     private void loadBetreuerDetails() {
-        // Angenommen, Sie erhalten die Betreuer-UID über einen Intent
+        // Aus dem Intent wird die betreuerUid extrahiert
         String betreuerUid = getIntent().getStringExtra("betreuerUid");
 
         firestore.collection("user").document(betreuerUid).get()
@@ -79,6 +80,7 @@ public class BetreuerDetailsStudentActivity extends AppCompatActivity {
                 });
     }
 
+    //Die Arbeiten, die von dem Betreuer sind und noch den status offen sind, werden hier geladen.
     private void loadBetreuerArbeiten() {
         String betreuerUid = getIntent().getStringExtra("betreuerUid");
 

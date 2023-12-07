@@ -16,11 +16,12 @@ import com.example.myapplication.models.Betreuer; // Ihr Betreuer-Modell
 import com.example.myapplication.R;
 
 import java.util.List;
-
+// Adapter für die Darstellung von Betreuern für Studenten in einer RecyclerView
 public class BetreuerAdapterStudent extends RecyclerView.Adapter<BetreuerAdapterStudent.BetreuerViewHolder> {
 
     private List<Betreuer> betreuerListe;
 
+    // Konstruktor des Adapters
     public BetreuerAdapterStudent(List<Betreuer> betreuerListe) {
         this.betreuerListe = betreuerListe;
     }
@@ -28,6 +29,7 @@ public class BetreuerAdapterStudent extends RecyclerView.Adapter<BetreuerAdapter
     @NonNull
     @Override
     public BetreuerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Erstellt ein neues ViewHolder-Objekt für jedes Element in der RecyclerView
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_betreuer_student, parent, false);
         return new BetreuerViewHolder(view);
@@ -35,6 +37,7 @@ public class BetreuerAdapterStudent extends RecyclerView.Adapter<BetreuerAdapter
 
     @Override
     public void onBindViewHolder(@NonNull BetreuerViewHolder holder, int position) {
+        // Setzt die Daten eines betreuer-Objekts in die Ansicht eines ViewHolder
         Betreuer betreuer = betreuerListe.get(position);
         Log.d("BetreuerAdapter", "Betreuer Name: " + betreuer.getName());
         Log.d("BetreuerAdapter", "Betreuer UID: " + betreuer.getBetreuerUid());
@@ -42,7 +45,7 @@ public class BetreuerAdapterStudent extends RecyclerView.Adapter<BetreuerAdapter
         holder.textViewNameBetreuerStudent.setText(betreuer.getName());
         holder.textViewFachBetreuerStudent.setText(betreuer.getFach());
 
-
+        // Event-Listener für Klicks auf jedes Element der RecyclerView
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,9 +59,11 @@ public class BetreuerAdapterStudent extends RecyclerView.Adapter<BetreuerAdapter
 
     @Override
     public int getItemCount() {
+        // Gibt die Anzahl der Elemente in der Liste zurück
         return betreuerListe.size();
     }
 
+    // ViewHolder-Klasse für die Darstellung eines einzelnen Elements in der RecyclerView
     public static class BetreuerViewHolder extends RecyclerView.ViewHolder {
         public TextView textViewNameBetreuerStudent;
         public TextView textViewFachBetreuerStudent;

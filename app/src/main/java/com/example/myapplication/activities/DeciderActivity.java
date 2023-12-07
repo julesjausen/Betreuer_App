@@ -15,7 +15,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class DeciderActivity extends AppCompatActivity {
-
+    //Hilfsklassen, die nach dem login entscheidet, auf welche Activity der Nutzer weitergeleitet wird, je nach Rolle des Nutzers
     FirebaseAuth mAuth;
 
     @Override

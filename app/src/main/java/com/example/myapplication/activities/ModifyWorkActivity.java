@@ -14,6 +14,7 @@ import com.example.myapplication.R;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ModifyWorkActivity extends AppCompatActivity {
+    //Für Zweitgutachter die Möglichkeit eine Arbeit zu bearbeiten, für die sie als zweitgutachter eingeteilt wurden.
 
     private TextView textViewWorkName, textViewDescription, textViewStatus;
     private Spinner spinnerRechnungsstatus;
@@ -48,7 +49,7 @@ public class ModifyWorkActivity extends AppCompatActivity {
         buttonSave.setOnClickListener(v -> saveChanges());
         buttonCancel.setOnClickListener(v -> finish());
     }
-
+    //Lädt die Daten der Arbeit
     private void loadArbeitData() {
         firestore.collection("thesis").document(arbeitUid).get()
                 .addOnSuccessListener(documentSnapshot -> {
@@ -60,6 +61,7 @@ public class ModifyWorkActivity extends AppCompatActivity {
 
                         String rechnungsstatus = arbeit.getRechnungsstatusZweitgutachter() != null
                                 ? arbeit.getRechnungsstatusZweitgutachter() : "N/A";
+                        //der Rechnungsstatus soll im Spinner entsprechend angezeigt werden
                         setUpSpinner(rechnungsstatus);
                     } else {
                         Toast.makeText(this, "Arbeit nicht gefunden", Toast.LENGTH_SHORT).show();
@@ -77,6 +79,7 @@ public class ModifyWorkActivity extends AppCompatActivity {
         spinnerRechnungsstatus.setSelection(position);
     }
 
+    //Neuer Rechnungsstatus wird gespeichert
     private void saveChanges() {
         String rechnungsstatus = spinnerRechnungsstatus.getSelectedItem().toString();
 
@@ -88,7 +91,7 @@ public class ModifyWorkActivity extends AppCompatActivity {
                 })
                 .addOnFailureListener(e -> Toast.makeText(ModifyWorkActivity.this, "Fehler beim Aktualisieren des Rechnungsstatus", Toast.LENGTH_SHORT).show());
     }
-
+    //Zur Navigation zwischen Activities
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();

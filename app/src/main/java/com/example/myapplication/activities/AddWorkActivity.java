@@ -43,21 +43,18 @@ public class AddWorkActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_work);
 
-        // Toolbar-Konfiguration
+        // Initialisierung der Toolbar
         Toolbar toolbar = findViewById(R.id.toolbarAddWork);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-
-
-
         // Firebase-Instanzen
         firestore = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
 
-        // EditTexts initialisieren
+        // UI-Komponenten initialisieren
         editTextWorkName = findViewById(R.id.editTextWorkNameAddWork);
         editTextSubject = findViewById(R.id.editTextSubjectAddWork);
         editTextDescription = findViewById(R.id.editTextDescriptionAddWork);
@@ -67,10 +64,6 @@ public class AddWorkActivity extends AppCompatActivity {
         textViewHeaderZustand = findViewById(R.id. textViewZustandHeader);
         textViewHeaderRechnungsstatus = findViewById(R.id.textViewRechnungsstatusHeader);
         textViewHeaderZweitgutachter = findViewById(R.id.textViewZweitgutachterHeader);
-        TextView linkTextView = findViewById(R.id.linkTextView);
-
-
-
 
         // Speichern-Button
         Button buttonSave = findViewById(R.id.buttonSaveAddWork);
@@ -91,13 +84,15 @@ public class AddWorkActivity extends AppCompatActivity {
             }
         });
 
-        // Überprüfen, ob eine arbeitUid übergeben wurde
+        // Überprüfen, ob eine arbeitUid übergeben wurde, davon abhängig wird der titel der toolbar angepasst
+        // und die Arbeit geladen
         String arbeitUid = getIntent().getStringExtra("arbeitUid");
         if (arbeitUid != null && !arbeitUid.isEmpty()) {
-            loadAndDisplayLink(arbeitUid);
+            loadAndDisplayLink(arbeitUid);   //Funktion zum Anzeigen des Links, falls ein Student eine Datei hochgeladen hat
             if (getSupportActionBar() != null) {
                 getSupportActionBar().setTitle("Arbeit bearbeiten");
             }
+
             loadArbeitData(arbeitUid); // Lade die bestehende Arbeit
         } else {
             // Neue Arbeit hinzufügen
@@ -109,11 +104,15 @@ public class AddWorkActivity extends AppCompatActivity {
         setUpSpinners();
     }
 
+
+    // Funktion zum Speichern der Arbeit
     private void saveWork() {
         String workName = editTextWorkName.getText().toString().trim();
         String subject = editTextSubject.getText().toString().trim();
         String description = editTextDescription.getText().toString().trim();
         String zustand = "offen"; // Standardzustand für neue Arbeiten
+
+
         if (spinnerZustand.getVisibility() == View.VISIBLE) {
             zustand = spinnerZustand.getSelectedItem().toString();
         }
@@ -181,6 +180,8 @@ public class AddWorkActivity extends AppCompatActivity {
         }
     }
 
+
+    // Funktion zur Darstellung des Links, um die Datei herunterzuladen, die der Student hochgeladen hat.
     private void loadAndDisplayLink(String arbeitUid) {
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         TextView linkTextView = findViewById(R.id.linkTextView); // ID entsprechend Ihrer Layout-Datei
@@ -202,6 +203,8 @@ public class AddWorkActivity extends AppCompatActivity {
                 })
                 .addOnFailureListener(e -> Toast.makeText(this, "Fehler beim Laden der Datei-URL", Toast.LENGTH_SHORT).show());
     }
+
+    //Die Daten der Arbeit werden aus Firebase geladen
     private void loadArbeitData(String arbeitUid) {
         firestore.collection("thesis").document(arbeitUid).get()
                 .addOnSuccessListener(documentSnapshot -> {
@@ -212,7 +215,7 @@ public class AddWorkActivity extends AppCompatActivity {
                         editTextSubject.setText(arbeit.getStudienfach());
                         editTextDescription.setText(arbeit.getBeschreibung());
 
-                        if (!arbeit.getZustand().equals("offen")) {
+                        if (!arbeit.getZustand().equals("offen")) { //Die Spinner sollen nur angezeigt werden, wenn ein Student sich für die Arbeit verbindlich gebucht hat.
                             spinnerZweitgutachter.setVisibility(View.VISIBLE);
                             spinnerZustand.setVisibility(View.VISIBLE);
                             spinnerRechnungsstatus.setVisibility(View.VISIBLE);
@@ -240,6 +243,8 @@ public class AddWorkActivity extends AppCompatActivity {
                 .addOnFailureListener(e -> Toast.makeText(this, "Fehler beim Laden der Daten", Toast.LENGTH_SHORT).show());
     }
 
+
+
     private void setUpSpinners() {
         // Initialisiere den Adapter für den Zustand-Spinner
         ArrayAdapter<CharSequence> zustandAdapter = ArrayAdapter.createFromResource(this,
@@ -256,6 +261,7 @@ public class AddWorkActivity extends AppCompatActivity {
         // Lade die Zweitgutachter-Daten
         loadZweitgutachterData();
     }
+
     private void loadZweitgutachterData() {
         loadZweitgutachterData(null);
     }
@@ -286,7 +292,6 @@ public class AddWorkActivity extends AppCompatActivity {
                 .addOnFailureListener(e -> Toast.makeText(this, "Fehler beim Laden der Zweitgutachter", Toast.LENGTH_SHORT).show());
     }
 
-
     private void setSpinnerSelection(Spinner spinner, String value) {
         ArrayAdapter<String> adapter = (ArrayAdapter<String>) spinner.getAdapter();
         if (value != null && adapter != null) {
@@ -296,9 +301,6 @@ public class AddWorkActivity extends AppCompatActivity {
             }
         }
     }
-
-
-
     // Reagiere auf die Auswahl der Home/Up-Taste in der Toolbar
     @Override
     public boolean onSupportNavigateUp() {
@@ -306,7 +308,5 @@ public class AddWorkActivity extends AppCompatActivity {
         return true;
     }
 
-    public interface UidConsumer {
-        void accept(String uid);
-    }
+
 }

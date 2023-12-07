@@ -21,6 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.List;
 
+// Fragment zur Darstellung von betreuten Arbeiten eines Studierenden
 public class ArbeitenFragmentStudent extends Fragment {
 
     private RecyclerView recyclerView;
@@ -35,8 +36,11 @@ public class ArbeitenFragmentStudent extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_arbeiten_student, container, false);
 
+        // Initialisierung von Firebase Firestore und UID des aktuellen Nutzers
         firestore = FirebaseFirestore.getInstance();
         currentStudentUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        //recycler view konfiguration
         recyclerView = view.findViewById(R.id.recyclerViewArbeitenBetreutStudent);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -44,12 +48,14 @@ public class ArbeitenFragmentStudent extends Fragment {
         adapter = new ArbeitAdapterBetreutStudent(arbeitenListe, getContext());
         recyclerView.setAdapter(adapter);
 
+        // Laden der betreuten Arbeiten aus der Firestore-Datenbank
         loadArbeiten();
 
         return view;
     }
 
     private void loadArbeiten() {
+        // Abfrage der Datenbank nach Arbeiten, die dem aktuell eingeloggten Studierenden zugeordnet sind
         firestore.collection("thesis")
                 .whereEqualTo("studentUid", currentStudentUid)
                 .addSnapshotListener((snapshots, e) -> {

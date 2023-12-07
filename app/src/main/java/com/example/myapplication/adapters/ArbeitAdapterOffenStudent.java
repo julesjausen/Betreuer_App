@@ -19,12 +19,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
+// Adapter für die Darstellung von offenen Arbeit-Objekten in einer RecyclerView für studenten
+
 public class ArbeitAdapterOffenStudent extends RecyclerView.Adapter<ArbeitAdapterOffenStudent.ArbeitViewHolder> {
 
     private List<Arbeit> arbeitenListe;
     private Context context; // Kontext hinzufügen
 
 
+
+    //Konstruktor
     public ArbeitAdapterOffenStudent(List<Arbeit> arbeitenListe, Context context) {
         this.arbeitenListe = arbeitenListe;
         this.context = context; // Kontext speichern
@@ -34,6 +38,7 @@ public class ArbeitAdapterOffenStudent extends RecyclerView.Adapter<ArbeitAdapte
     @NonNull
     @Override
     public ArbeitViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Erstellt ein neues ViewHolder-Objekt für jedes Element in der RecyclerView
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.arbeit_item_offen_student, parent, false);
         return new ArbeitViewHolder(view);
@@ -41,16 +46,15 @@ public class ArbeitAdapterOffenStudent extends RecyclerView.Adapter<ArbeitAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ArbeitViewHolder holder, int position) {
+        // Setzt die Daten eines Arbeit-Objekts in die Ansicht eines ViewHolder
         Arbeit arbeit = arbeitenListe.get(position);
         holder.textViewArbeitName.setText(arbeit.getNameDerArbeit());
         holder.textViewFachName.setText(arbeit.getStudienfach());
         holder.textViewArbeitBeschreibung.setText(arbeit.getBeschreibung());
-        //beschreibung
-        //kästchen zum buchen des kurses
 
-        // Setzen Sie hier Ihren spezifischen OnClickListener
+        // Event-Listener für Klicks auf jedes Element der RecyclerView
         holder.itemView.setOnClickListener(v -> {
-            showConfirmationDialog(v.getContext(), arbeit); // Kontext wird übergeben
+            showConfirmationDialog(v.getContext(), arbeit); // Kontext wird übergeben, Funktion zum bestätigen der buchung
         });
     }
 

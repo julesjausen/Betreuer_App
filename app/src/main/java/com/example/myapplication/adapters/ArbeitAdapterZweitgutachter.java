@@ -15,10 +15,12 @@ import com.example.myapplication.models.Arbeit;
 
 import java.util.List;
 
+// Adapter für die Darstellung von Arbeit-Objekten in einer RecyclerView für zweitgutachter
 public class ArbeitAdapterZweitgutachter extends RecyclerView.Adapter<ArbeitAdapterZweitgutachter.ArbeitViewHolder> {
 
     private List<Arbeit> arbeitenListe;
 
+    //Konstruktor
     public ArbeitAdapterZweitgutachter(List<Arbeit> arbeitenListe) {
         this.arbeitenListe = arbeitenListe;
     }
@@ -26,6 +28,7 @@ public class ArbeitAdapterZweitgutachter extends RecyclerView.Adapter<ArbeitAdap
     @NonNull
     @Override
     public ArbeitViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Erstellt ein neues ViewHolder-Objekt für jedes Element in der RecyclerView
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.arbeit_item_zweitgutachter, parent, false);
         return new ArbeitViewHolder(view);
@@ -33,24 +36,22 @@ public class ArbeitAdapterZweitgutachter extends RecyclerView.Adapter<ArbeitAdap
 
     @Override
     public void onBindViewHolder(@NonNull ArbeitViewHolder holder, int position) {
+        // Setzt die Daten eines Arbeit-Objekts in die Ansicht eines ViewHolder
         Arbeit arbeit = arbeitenListe.get(position);
         holder.textViewArbeitName.setText(arbeit.getNameDerArbeit());
         holder.textViewFachName.setText(arbeit.getStudienfach());
         // Implementieren Sie hier die Logik für das Anklicken eines Items
         holder.itemView.setOnClickListener(v -> {
-
+            // Startet die ModifyWorkActivity und übergibt die UID der ausgewählten Arbeit
             Intent intent = new Intent(v.getContext(), ModifyWorkActivity.class);
             intent.putExtra("arbeitUid", arbeit.getArbeitUid());
             v.getContext().startActivity(intent);
-
         });
-
-
-
     }
 
     @Override
     public int getItemCount() {
+        // Gibt die Anzahl der Elemente in der Liste zurück
         return arbeitenListe.size();
     }
 

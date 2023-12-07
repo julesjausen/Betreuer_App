@@ -48,6 +48,8 @@ public class BetreuerActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.view_pager);
         tabLayout = findViewById(R.id.tabs);
         FloatingActionButton fab = findViewById(R.id.fab_add_work);
+
+        // Bei Drücken des Buttons kommt man auf die AddWorkActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,10 +57,7 @@ public class BetreuerActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
-        setupViewPager(viewPager);
+        setupViewPager(viewPager); //Für die Fragmente
         tabLayout.setupWithViewPager(viewPager);
     }
 
@@ -108,7 +107,7 @@ public class BetreuerActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here.
+        // Wenn man auf die Items im Menü klickt, passieren die entsprechenden Dinge (Logout / Profil aufrufen)
         int id = item.getItemId();
 
         if (id == R.id.action_logout) {
@@ -133,6 +132,7 @@ public class BetreuerActivity extends AppCompatActivity {
     }
 
 
+    //Funktion, welche die Hintergrundfarbe des Menüs anpasst
     public boolean onPrepareOptionsMenu(@NonNull Menu menu) {
         for (int i = 0; i < menu.size(); i++) {
             MenuItem item = menu.getItem(i);
@@ -143,6 +143,7 @@ public class BetreuerActivity extends AppCompatActivity {
         return super.onPrepareOptionsMenu(menu);
     }
 
+    //öffnet das dialogfenster zum anpassen des Profils
     private void openProfileDialog() {
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         ProfileDialogFragment profileDialog = new ProfileDialogFragment(userId);
